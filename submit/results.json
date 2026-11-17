@@ -1,0 +1,51 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "H1",
+      "feature": "f_14",
+      "estimate": 0.318479,
+      "ci": [
+        0.300352,
+        0.336606
+      ],
+      "p_value": 3.695563751478017e-260,
+      "n": 1395,
+      "decision": "keep",
+      "kill_reason": "",
+      "locked_test_passed": true,
+      "adjusted_estimate": 0.32022,
+      "adjusted_ci": [
+        0.301043,
+        0.339397
+      ]
+    },
+    {
+      "hypothesis_id": "H2",
+      "feature": "f_39",
+      "estimate": 0.06745,
+      "ci": [
+        0.038722,
+        0.096178
+      ],
+      "p_value": 2.0940797025595638e-06,
+      "n": 1397,
+      "decision": "inconclusive",
+      "kill_reason": "concentration",
+      "locked_test_passed": true,
+      "adjusted_estimate": 0.033536,
+      "adjusted_ci": [
+        -0.003394,
+        0.070466
+      ]
+    }
+  ],
+  "data_checks": {
+    "dedup_rows_removed": 85,
+    "sentinel_handling": "-999 treated as missing (NaN) before clipping and standardizing; for duplicate event_ids I kept the copy with the fewest missing features",
+    "timezone_normalized": true,
+    "exits_included": true,
+    "exits_note": "primary tests only use issuers that have outcome rows; as a robustness check, defaulted and distressed-exchange issuers without outcome rows were counted as deteriorated",
+    "point_in_time": "only events published inside their event month are used; later revisions are excluded",
+    "issuer_id_normalized": "issuer ids lowercased and stripped before every join"
+  }
+}

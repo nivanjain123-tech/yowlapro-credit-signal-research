@@ -1,0 +1,24 @@
+exp_id,logged_at,hypothesis_id,test_type,split,n,metric,estimate,ci_low,ci_high,p_value,decision,kill_reason,minutes_spent,notes
+E01,2026-11-04T05:31:03Z,exploratory,cheap,discovery,1208,slope_prob_per_sd,0.1885,,,0.0,kill,leakage,8,"f_08 with a plain event-month join (ignores published_at). It flips to about -0.024 on the point-in-time sample, so it was leakage from late revisions"
+E02,2026-11-04T05:32:09Z,H1,cheap,discovery,692,slope_prob_per_sd,0.3259,,,0.0,keep,,6,f_14 screen on events published in their own month. BH q under 0.001
+E03,2026-11-04T05:32:09Z,H2,cheap,discovery,696,slope_prob_per_sd,0.0522,,,0.0041,keep,,2,"f_39 screen. BH q 0.092, weak candidate"
+E04,2026-11-04T05:32:26Z,exploratory,cheap,discovery,696,slope_prob_per_sd,0.0476,,,0.0088,kill,multiple_testing,3,"f_05. BH q 0.13, drops to 0.018 without winsorizing, about 0 in 8-K filings. Not registered"
+E05,2026-11-04T05:32:26Z,exploratory,cheap,discovery,695,slope_prob_per_sd,0.0457,,,0.0145,kill,multiple_testing,2,"f_06. BH q 0.13, permutation p around 0.5. Not registered"
+E06,2026-11-04T05:34:22Z,H2,robustness,discovery,696,slope_prob_per_sd,0.0457,,,0.0041,keep,,10,"bootstrap and split-half stability: f_39 made the top 4 in 68% of splits, held-out slope 0.046 when picked"
+E07,2026-11-04T05:38:31Z,H1,robustness,discovery,696,slope_prob_per_sd,0.3259,,,0.005,keep,,15,"outcomes shuffled within month across all 45 features, family-wise p under 0.005. Deciles show near-perfect separation above about 0.5"
+E08,2026-11-04T05:38:31Z,H2,robustness,discovery,696,slope_prob_per_sd,0.0517,,,0.265,inconclusive,multiple_testing,1,"same permutation test, family-wise p 0.27. f_39 looks like noise after searching 45 features"
+E09,2026-11-04T05:38:31Z,H1,robustness,discovery,696,slope_prob_per_sd,-0.011,,,,keep,,5,"timing placebo, f_14 slope at other outcome offsets is about 0 (0.326 at offset 0). Row shows offset +6, no p-value"
+E10,2026-11-04T05:51:41Z,H1,full,holdout,1395,slope_prob_per_sd,0.3185,0.3004,0.3366,3.7e-260,keep,,5,"the pre-registered test. Linear model on standardized f_14, clipped at discovery 1st/99th percentiles, issuer-clustered, one-sided p. Passes"
+E11,2026-11-04T05:51:41Z,H2,full,holdout,1397,slope_prob_per_sd,0.0674,0.0387,0.0962,2.09e-06,inconclusive,concentration,5,"locked test passed (0.067, p under 0.025) but with sector fixed effects it is 0.031 (CI -0.006 to 0.068). Mostly a sector effect, so inconclusive"
+E12,2026-11-04T05:51:41Z,H1,robustness,holdout,1355,slope_prob_per_sd,0.3194,0.301,0.3378,0.0,keep,,2,dropped issuers that later exited. p under 1e-4
+E13,2026-11-04T05:51:41Z,H1,robustness,holdout,1442,slope_prob_per_sd,0.3097,0.292,0.328,0.0,keep,,2,counted defaulted and distressed-exchange issuers without outcome rows as deteriorated. p under 1e-4
+E14,2026-11-04T05:51:41Z,H2,robustness,holdout,1357,slope_prob_per_sd,0.0673,0.0381,0.0965,0.0,keep,,2,dropped issuers that later exited. p under 1e-4
+E15,2026-11-04T05:51:41Z,H2,robustness,holdout,1444,slope_prob_per_sd,0.0685,0.04,0.097,0.0,keep,,2,counted defaulted issuers as deteriorated. p under 1e-4
+E16,2026-11-04T05:51:41Z,H1,robustness,holdout,1395,slope_prob_per_sd,0.3153,0.2964,0.3341,0.0,keep,,1,no clipping. p under 1e-4
+E17,2026-11-04T05:51:41Z,H2,robustness,holdout,1397,slope_prob_per_sd,0.0677,0.0391,0.0964,0.0,keep,,1,no clipping. p under 1e-4
+E18,2026-11-04T06:01:38Z,H2,robustness,holdout,1397,slope_prob_per_sd,0.0308,-0.006,0.068,0.0501,inconclusive,concentration,3,"sector fixed effects only. Month, size and source controls leave it at about 0.067"
+E19,2026-11-04T06:01:38Z,H2,robustness,holdout,1397,slope_prob_per_sd,0.0335,-0.003,0.07,0.0376,inconclusive,concentration,2,"all four controls (month, sector, size, source). Below the 0.05 bar"
+E20,2026-11-04T06:01:38Z,H2,robustness,discovery,696,slope_prob_per_sd,0.0237,-0.025,0.072,0.1677,inconclusive,concentration,2,"discovery with sector fixed effects, 0.052 falls to 0.024. Looks like a sector proxy, I hadn't checked this before registering"
+E21,2026-11-04T06:01:38Z,H1,robustness,holdout,1395,slope_prob_per_sd,0.3202,0.301,0.3394,0.0,keep,,2,"all four fixed effects, no change. p under 1e-4"
+E22,2026-11-04T06:01:38Z,H1,robustness,holdout,1395,slope_prob_per_sd,0.3185,0.3003,0.3384,0.001,keep,,4,issuer bootstrap CI (1000 draws) and within-month permutation p (floor 0.001). Rebuilding it separately in DuckDB gave the same slope
+E23,2026-11-04T06:01:38Z,H2,robustness,holdout,1397,slope_prob_per_sd,0.0671,0.0364,0.094,0.001,keep,,4,bootstrap CI and permutation p on the registered model. 13% of bootstrap draws land under 0.05
